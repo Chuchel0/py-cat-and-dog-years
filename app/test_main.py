@@ -47,3 +47,36 @@ def test_when_age_more_than_24(
     result: list[int]
 ) -> None:
     assert get_human_age(cat_age, dog_age) == result
+
+
+@pytest.mark.parametrize(
+    "cat_age,dog_age",
+    [
+        (-1, 24),
+        (27, -1),
+        (-1, -1)
+    ]
+)
+def test_negative_numbers_input(
+    cat_age: int,
+    dog_age: int
+) -> None:
+    with pytest.raises(ValueError):
+        get_human_age(cat_age, dog_age)
+
+
+@pytest.mark.parametrize(
+    "cat_age,dog_age",
+    [
+        (2.5, 24),
+        (27, 2.5),
+        (None, None),
+        ("5", "6")
+    ]
+)
+def test_incorrect_input_type(
+    cat_age: int,
+    dog_age: int
+) -> None:
+    with pytest.raises(TypeError):
+        get_human_age(cat_age, dog_age)
